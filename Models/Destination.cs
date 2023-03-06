@@ -8,7 +8,7 @@ namespace Models
 {
     public class Destination
     {
-        public string? StopId { get; set; }
+        public int? StopId { get; set; }
         public string StopName { get; set; }    
         public string? StopOfferId { get; set; }
         public int? StopNumber { get; set; }

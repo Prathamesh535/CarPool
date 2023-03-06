@@ -15,12 +15,12 @@ namespace CarPool.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
-        private readonly CarPoolContext _context;
+        private readonly IRepoWrapper _RepoWrapper;
 
-        public LoginController(IConfiguration config,CarPoolContext context)
+        public LoginController(IConfiguration config,IRepoWrapper repoWrapper)
         {
             _config = config;
-            _context = context;
+            _RepoWrapper = repoWrapper;
         }
         [HttpGet]
         public IActionResult GetToken(Account login)
@@ -48,8 +48,7 @@ namespace CarPool.Controllers
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Name, userInfo.UserName),
-                new Claim(JwtRegisteredClaimNames.NameId,userInfo.AccountId)
+                new Claim(JwtRegisteredClaimNames.Name, userInfo.UserName)
             };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
@@ -62,7 +61,7 @@ namespace CarPool.Controllers
 
         private Account AuthenticateUser(Account login)
         {
-            Account user = _context.Account.Where(x => x.UserName == login.UserName && x.Password == login.Password).FirstOrDefault();
+            Account user = _RepoWrapper._AccountRepository.GetOne(x => x.UserName == login.UserName && x.Password == login.Password);
             return user;
         }
     }

@@ -6,6 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
+using Models;
+using Entities;
+using DataAccessLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 

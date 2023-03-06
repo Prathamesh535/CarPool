@@ -8,17 +8,17 @@ namespace Entities
 {
     public class OfferRide
     {
-        public string OfferingId { get; set; }//PK
+        public int OfferingId { get; set; }//PK
         public string From { get; set; }
         public string To { get; set; }
-        public int TotalSeatsAvailable { get; set; }
-        public int SeatsAvailable { get; set; }
+        public int TotalSeats { get; set; }
+        public int AvailableSeats { get; set; }
         public string OfferTiming { get; set; }
         public string OfferDate { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
         public List<Stops> Stops { get; set; }
         public List<BookRide>? BookRide { get; set; }
-        public string AccountId { get; set; }//FK
+        public int AccountId { get; set; }//FK
 
         public Account Account; 
     }

@@ -1,4 +1,5 @@
-﻿using DataAccessLayer;
+﻿using BusinessLayer;
+using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,21 +11,19 @@ namespace CarPool.Controllers
     [ApiController]
     public class OfferingRideDetailsController : ControllerBase
     {
-        private readonly CarPoolContext _context;
-
-        public OfferingRideDetailsController(CarPoolContext context)
+        private IRepoWrapper _RepoWrapper;
+        public OfferingRideDetailsServices offeringRideDetailsServices;
+        public OfferingRideDetailsController(IRepoWrapper repoWrapper)
         {
-            _context = context;
+            _RepoWrapper= repoWrapper;
+            offeringRideDetailsServices = new OfferingRideDetailsServices(_RepoWrapper);
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OfferingRideDetails>>> GetAccount()
         {
-            if (_context.OfferingRideDetails == null)
-            {
-                return NotFound();
-            }
-            return await _context.OfferingRideDetails.ToListAsync();
+
+            return await offeringRideDetailsServices.GetOfferingRideDetails();
         }
     }
 }

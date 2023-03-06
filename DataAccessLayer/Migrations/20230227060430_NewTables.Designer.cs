@@ -11,24 +11,26 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(CarPoolContext))]
-    [Migration("20230208100230_NewCarPool")]
-    partial class NewCarPool
+    [Migration("20230227060430_NewTables")]
+    partial class NewTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Entities.Account", b =>
                 {
-                    b.Property<string>("AccountId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(0);
+                    b.Property<int>("AccountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"));
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -45,13 +47,15 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.BookRide", b =>
                 {
-                    b.Property<string>("BookingId")
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<int>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    b.Property<string>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int")
                         .HasColumnOrder(0);
 
                     b.Property<string>("BookTiming")
@@ -62,8 +66,8 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Charges")
-                        .HasColumnType("float");
+                    b.Property<int>("Charges")
+                        .HasColumnType("int");
 
                     b.Property<string>("From")
                         .IsRequired()
@@ -72,9 +76,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("NumberOfSeatsBooked")
                         .HasColumnType("int");
 
-                    b.Property<string>("OfferBookingId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("OfferBookingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("To")
                         .IsRequired()
@@ -91,8 +94,11 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.Location", b =>
                 {
-                    b.Property<string>("LocationId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocationId"));
 
                     b.Property<string>("LocationName")
                         .IsRequired()
@@ -105,14 +111,19 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.OfferRide", b =>
                 {
-                    b.Property<string>("OfferingId")
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<int>("OfferingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    b.Property<string>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OfferingId"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int")
                         .HasColumnOrder(0);
+
+                    b.Property<int>("AvailableSeats")
+                        .HasColumnType("int");
 
                     b.Property<string>("From")
                         .IsRequired()
@@ -126,17 +137,14 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SeatsAvailable")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<string>("To")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalSeatsAvailable")
+                    b.Property<int>("TotalSeats")
                         .HasColumnType("int");
 
                     b.HasKey("OfferingId");
@@ -148,20 +156,21 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.Stops", b =>
                 {
-                    b.Property<string>("StopId")
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<int>("StopId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    b.Property<string>("LocationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StopId"));
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StopNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("StopOfferId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<int>("StopOfferId")
+                        .HasColumnType("int")
                         .HasColumnOrder(0);
 
                     b.HasKey("StopId");

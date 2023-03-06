@@ -26,16 +26,11 @@ namespace DataAccessLayer
         {
             modelBuilder.Entity<Account>()
                 .HasKey(key => key.AccountId);
-            modelBuilder.Entity<Account>()
-                .Property(key => key.AccountId)
-                .HasColumnOrder(0)
-                .ValueGeneratedNever();
             modelBuilder.Entity<OfferRide>()
                 .HasKey(key => key.OfferingId);
             modelBuilder.Entity<OfferRide>()
                 .Property(key => key.OfferingId)
-                .HasColumnOrder(1)
-                .ValueGeneratedNever();
+                .HasColumnOrder(1);
             modelBuilder.Entity<OfferRide>()
                 .HasOne(x => x.Account)
                 .WithMany(y => y.OfferRide)
@@ -48,8 +43,7 @@ namespace DataAccessLayer
                 .HasKey(key => key.StopId);
             modelBuilder.Entity<Stops>()
                 .Property(x => x.StopId)
-                .HasColumnOrder(1)
-                .ValueGeneratedNever();
+                .HasColumnOrder(1);
             modelBuilder.Entity<Stops>()
                 .Property(x => x.StopOfferId)
                 .HasColumnOrder(0);
@@ -80,23 +74,15 @@ namespace DataAccessLayer
                 .HasColumnOrder(0);
             modelBuilder.Entity<BookRide>()
                 .Property(x => x.BookingId)
-                .HasColumnOrder(1)
-                .ValueGeneratedNever();
+                .HasColumnOrder(1);
             modelBuilder.Entity<Location>()
                 .HasKey(x => x.LocationId);
-            modelBuilder.Entity<Location>()
-                .Property(x => x.LocationId)
-                .ValueGeneratedNever();
             modelBuilder.Entity<OfferingRideDetails>()
                 .HasKey(x => x.StopId);
-            modelBuilder.Entity<OfferingRideDetails>()
-                .Property(x => x.StopId)
-                .ValueGeneratedNever();
             modelBuilder.Entity<OfferingRides>()
                 .HasKey(x => x.OfferingId);
             modelBuilder.Entity<Destination>()
                 .HasKey(x => x.StopId);
-
         }
         public DbSet<Account> Account { get; set; }
         public DbSet<OfferRide> OfferRide { get; set; }

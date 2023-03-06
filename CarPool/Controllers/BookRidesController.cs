@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccessLayer;
 using Entities;
+using BusinessLayer;
+using DataAccessLayer;
 
 namespace CarPool.Controllers
 {
@@ -15,23 +16,23 @@ namespace CarPool.Controllers
     public class BookRidesController : ControllerBase
     {
         private readonly IRepoWrapper _RepoWrapper;
+        public BookRideServices bookRideServices;
         public BookRidesController(IRepoWrapper repoWrapper)
         {
-            _RepoWrapper = repoWrapper ;
+            _RepoWrapper = repoWrapper;
+            bookRideServices = new BookRideServices(_RepoWrapper);
         }
-
+        //BookRideServices b = new BookRideServices()
         [HttpGet]
         public  Task<ActionResult<IEnumerable<BookRide>>> GetBookRide()
         {
-            return  _RepoWrapper._BookRideRepository.GetAll();
+            return bookRideServices.GetBookRide();
         }
 
         [HttpPost]
         public async Task<ActionResult<BookRide>> PostBookRide(BookRide bookRide)
         {
-            var Seats=_RepoWrapper._OfferRideRepository.GetOne(x=>x.OfferingId== bookRide.OfferBookingId);
-            Seats.SeatsAvailable -= bookRide.NumberOfSeatsBooked;
-            await _RepoWrapper._BookRideRepository.Add(bookRide);
+            await bookRideServices.AddBookRide(bookRide); 
             return CreatedAtAction("GetBookRide", new { id = bookRide.BookingId }, bookRide);
         }
     }

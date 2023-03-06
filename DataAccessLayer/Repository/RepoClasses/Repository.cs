@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
-    public class Repository<T>:IRepository<T> where T :class
+    public class Repository<T> : IRepository<T> where T : class
     {
         public readonly CarPoolContext _context;
         protected DbSet<T> _dbSet;
@@ -32,13 +32,13 @@ namespace DataAccessLayer
             return await _context.Set<T>().ToListAsync();
         }
         private IQueryable<T> GetQuery(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderExpression = null)
-        { 
-            IQueryable<T> qry = this._dbSet; 
+        {
+            IQueryable<T> qry = _dbSet;
             if (predicate != null)
-                qry = qry.Where(predicate); 
-            if (orderExpression != null) 
-                return orderExpression(qry); 
-            return qry; 
+                qry = qry.Where(predicate);
+            if (orderExpression != null)
+                return orderExpression(qry);
+            return qry;
         }
 
         public T GetOne(Expression<Func<T, bool>> predicate = null)

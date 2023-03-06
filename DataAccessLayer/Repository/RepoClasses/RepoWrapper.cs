@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccessLayer;
+using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +10,40 @@ using System.Threading.Tasks;
 namespace DataAccessLayer
 {
 
-    public class RepoWrapper: IRepoWrapper
+    public class RepoWrapper : IRepoWrapper
     {
         private readonly CarPoolContext _CarPoolContext;
         private IOfferRideRepository OfferRideRepository;
         private ILocationRepository LocationRepository;
         private IBookRideRepository BookRideRepository;
-        public RepoWrapper(CarPoolContext carPoolContext) 
+        private IAccountRepository AccountRepository;
+        private IOfferingRideDetailsRepository OfferingRideDetailsRepository;
+        public RepoWrapper(CarPoolContext carPoolContext)
         {
             _CarPoolContext = carPoolContext;
         }
-
+        public IAccountRepository _AccountRepository
+        {
+            get
+            {
+                if (AccountRepository == null)
+                {
+                    AccountRepository = new AccountRepository(_CarPoolContext);
+                }
+                return AccountRepository;
+            }
+        }
         public IOfferRideRepository _OfferRideRepository
-        { get 
+        {
+            get
             {
                 if (OfferRideRepository == null)
                 {
                     OfferRideRepository = new OfferRideRepository(_CarPoolContext);
                 }
                 return OfferRideRepository;
-   
-            } 
+
+            }
         }
         public ILocationRepository _LocationRepository
         {
@@ -47,9 +62,20 @@ namespace DataAccessLayer
             {
                 if (BookRideRepository == null)
                 {
-                    BookRideRepository=new BookRideRepository(_CarPoolContext);
+                    BookRideRepository = new BookRideRepository(_CarPoolContext);
                 }
                 return BookRideRepository;
+            }
+        }
+        public IOfferingRideDetailsRepository _OfferingRideDetailsRepository
+        {
+            get
+            {
+                if (OfferingRideDetailsRepository == null)
+                {
+                    OfferingRideDetailsRepository = new OfferingRideDetailsRepository(_CarPoolContext);
+                }
+                return OfferingRideDetailsRepository;
             }
         }
     }

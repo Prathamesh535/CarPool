@@ -4,29 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
-using DataAccessLayer;
 using Models;
+using DataAccessLayer;
 
 namespace BusinessLayer
 {
     public class StopServices
     {
+        private IRepoWrapper _RepoWrapper;
+        public StopServices(IRepoWrapper repoWrapper) 
+        {
+            _RepoWrapper = repoWrapper;
+        }         
         public Stops AddStopDetailsFromOfferRide(OfferingRides offerRide)
         {
             Stops stop = new Stops();
-            stop.StopId = offerRide.From+offerRide.OfferingId;
             stop.StopNumber = 0;
             stop.StopOfferId = offerRide.OfferingId;
-            stop.LocationId = offerRide.From.Substring(0, 3);
+            var location = _RepoWrapper._LocationRepository.GetOne(x => x.LocationName == offerRide.From);
+            stop.LocationId = location.LocationId;
             return stop;
         }
         public Stops AddStopDetailsToOfferRide(OfferingRides offerRide,int StopNumber)
         {
             Stops stop = new Stops();
-            stop.StopId = offerRide.To + offerRide.OfferingId;
             stop.StopNumber = StopNumber;
             stop.StopOfferId = offerRide.OfferingId;
-            stop.LocationId = offerRide.To.Substring(0,3);
+            var location = _RepoWrapper._LocationRepository.GetOne(x => x.LocationName == offerRide.To);
+            stop.LocationId = location.LocationId;
             return stop;
         }
         public List<Stops> AddStops(OfferingRides offerRide)
@@ -38,10 +43,10 @@ namespace BusinessLayer
             foreach(var stop in offerRide.Destinations)
             {
                 Stops stops = new Stops();
-                stops.StopId = stop.StopName+offerRide.OfferingId;
                 stops.StopNumber = StopNumber;
-                stops.LocationId = stop.StopName.Substring(0, 3);
                 stopList.Add(stops);
+                var location = _RepoWrapper._LocationRepository.GetOne(x => x.LocationName == stop.StopName);
+                stops.LocationId = location.LocationId;
                 StopNumber++;
             }
             Stops offerRideStopNumber = AddStopDetailsToOfferRide(offerRide,StopNumber);

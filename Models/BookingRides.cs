@@ -7,7 +7,7 @@ namespace Models
 {
     public class BookingRides
     {
-        public string BookId { get; set; }
+        public int BookId { get; set; }
         public string  From { get; set; }
         public string To { get; set; }
         public string OfferedFrom { get; set; }

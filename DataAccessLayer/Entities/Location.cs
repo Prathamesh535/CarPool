@@ -8,7 +8,7 @@ namespace Entities
 {
     public class Location
     {
-        public string LocationId { get; set; }//PK
+        public int LocationId { get; set; }//PK
         public string LocationName { get; set; }
         public List<Stops>? Stops { get; set; }
     }

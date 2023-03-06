@@ -7,12 +7,12 @@ namespace Entities
 {
     public class BookRide
     {
-        public string AccountId { get; set; }//FK
-        public string BookingId { get; set; }//PK
-        public string OfferBookingId { get; set; }//FK
+        public int AccountId { get; set; }//FK
+        public int BookingId { get; set; }//PK
+        public int OfferBookingId { get; set; }//FK
         public string From { get; set; }
         public string To { get; set; }
-        public double Charges { get; set; }
+        public int Charges { get; set; }
         public string BookingDate { get; set; }
         public string BookTiming { get; set; }
         public int NumberOfSeatsBooked { get; set; }

@@ -5,7 +5,7 @@
 namespace DataAccessLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class NewCarPool : Migration
+    public partial class NewTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +14,8 @@ namespace DataAccessLayer.Migrations
                 name: "Account",
                 columns: table => new
                 {
-                    AccountId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccountId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -27,7 +28,8 @@ namespace DataAccessLayer.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    LocationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -39,15 +41,16 @@ namespace DataAccessLayer.Migrations
                 name: "OfferRide",
                 columns: table => new
                 {
-                    AccountId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OfferingId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    OfferingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     From = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     To = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalSeatsAvailable = table.Column<int>(type: "int", nullable: false),
-                    SeatsAvailable = table.Column<int>(type: "int", nullable: false),
+                    TotalSeats = table.Column<int>(type: "int", nullable: false),
+                    AvailableSeats = table.Column<int>(type: "int", nullable: false),
                     OfferTiming = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OfferDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,12 +67,13 @@ namespace DataAccessLayer.Migrations
                 name: "BookRide",
                 columns: table => new
                 {
-                    AccountId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BookingId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OfferBookingId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    BookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OfferBookingId = table.Column<int>(type: "int", nullable: false),
                     From = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     To = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Charges = table.Column<double>(type: "float", nullable: false),
+                    Charges = table.Column<int>(type: "int", nullable: false),
                     BookingDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BookTiming = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfSeatsBooked = table.Column<int>(type: "int", nullable: false)
@@ -95,9 +99,10 @@ namespace DataAccessLayer.Migrations
                 name: "Stops",
                 columns: table => new
                 {
-                    StopOfferId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StopId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LocationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StopOfferId = table.Column<int>(type: "int", nullable: false),
+                    StopId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
                     StopNumber = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

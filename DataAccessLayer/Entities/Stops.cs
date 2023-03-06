@@ -8,9 +8,9 @@ namespace Entities
 {
     public class Stops
     {
-        public string StopId { get; set; }//PK
-        public string StopOfferId { get; set; }//FK
-        public string LocationId { get; set; }//FK
+        public int StopId { get; set; }//PK
+        public int StopOfferId { get; set; }//FK
+        public int LocationId { get; set; }//FK
         public int StopNumber { get; set; }
 
         public OfferRide OfferRide;

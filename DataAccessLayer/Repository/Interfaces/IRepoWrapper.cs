@@ -11,5 +11,7 @@ namespace DataAccessLayer
         IOfferRideRepository _OfferRideRepository { get; }
         ILocationRepository _LocationRepository { get; }
         IBookRideRepository _BookRideRepository { get; }
+        IAccountRepository _AccountRepository { get; }
+        IOfferingRideDetailsRepository _OfferingRideDetailsRepository { get; }
     }
 }

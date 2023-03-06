@@ -8,7 +8,7 @@ namespace Models
 {
     public class Users
     {
-        public string AccountId { get; set; }
+        public int AccountId { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
         List<BookingRides> BookRide { get; set;}
