@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Entities;
 using BusinessLayer;
 using Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using DataAccessLayer;
 
@@ -19,11 +20,13 @@ namespace CarPool.Controllers
     public class OfferRidesController : ControllerBase
     {
         public IRepoWrapper _RepoWrapper;
+        public IMapper _Mapper;
         public OfferRideServices offerRideServices ;
-        public OfferRidesController(IRepoWrapper repoWrapper)
+        public OfferRidesController(IRepoWrapper repoWrapper, IMapper mapper)
         {
             _RepoWrapper = repoWrapper;
-            offerRideServices = new OfferRideServices(_RepoWrapper);
+            _Mapper = mapper;
+            offerRideServices = new OfferRideServices(_RepoWrapper,_Mapper);
         }
         [HttpGet]
         public Task<ActionResult<IEnumerable<OfferRide>>> GetOfferRide()
@@ -33,7 +36,7 @@ namespace CarPool.Controllers
         [HttpPost]
         public async Task<ActionResult<OfferingRides>> PostOfferRide(OfferingRides offerRide)
         {
-            offerRideServices.AddOfferRides(offerRide);
+            await offerRideServices.AddOfferRides(offerRide);
             return CreatedAtAction("GetOfferRide", new { id = offerRide.OfferingId }, offerRide);
         }
     }

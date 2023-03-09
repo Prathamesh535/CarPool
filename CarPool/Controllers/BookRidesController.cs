@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Entities;
 using BusinessLayer;
 using DataAccessLayer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarPool.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BookRidesController : ControllerBase
     {
         private readonly IRepoWrapper _RepoWrapper;

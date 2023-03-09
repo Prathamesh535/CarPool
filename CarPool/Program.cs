@@ -9,10 +9,8 @@ using System.Text;
 using AutoMapper;
 using Models;
 using Entities;
-using DataAccessLayer;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
@@ -46,6 +44,13 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddCors();
 builder.Services.AddControllers();
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new AutoMapperRepo());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddDbContext<CarPoolContext>(options => options.UseSqlServer(@"Server=(localdb)\\mssqllocaldb;Database=CarPool;Trusted_Connection=True")) ;

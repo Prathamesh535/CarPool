@@ -16,33 +16,38 @@ namespace BusinessLayer
     public class OfferRideServices
     {
         public IRepoWrapper _RepoWrapper { get; set; }
-        public StopServices stopServices { get; set; }
+        public IMapper _Mapper { get; set; }
         public LocationServices locationServices { get; set; }
-        public OfferRideServices(IRepoWrapper repoWrapper)
+        public OfferRideServices(IRepoWrapper repoWrapper,IMapper mapper)
         { 
             _RepoWrapper = repoWrapper;
-            stopServices = new StopServices(_RepoWrapper);
+            _Mapper = mapper;
             locationServices = new LocationServices(_RepoWrapper);
         }
         public async Task AddOfferRides(OfferingRides offerRide)
         {
             await locationServices.AddLocation(offerRide);
-            OfferRide offerRide1offer = new OfferRide();
-            offerRide1offer.From = offerRide.From;
-            offerRide1offer.To = offerRide.To;
-            offerRide1offer.AccountId = offerRide.AccountId;
-            offerRide1offer.OfferingId = offerRide.OfferingId;
-            offerRide1offer.OfferDate = offerRide.OfferDate;
-            offerRide1offer.OfferTiming = offerRide.OfferTiming;
-            offerRide1offer.Stops = stopServices.AddStops(offerRide);
-            offerRide1offer.TotalSeats = offerRide.TotalSeats;
-            offerRide1offer.AvailableSeats = offerRide.AvailableSeats;
-            offerRide1offer.Price = offerRide.Price;
-            await _RepoWrapper._OfferRideRepository.Add(offerRide1offer);
+            RequiredModel requiredModel = AssignProperties(offerRide);
+            var offerRide1 = _Mapper.Map<OfferRide>(requiredModel);
+            await _RepoWrapper._OfferRideRepository.Add(offerRide1);
         }
         public Task<ActionResult<IEnumerable<OfferRide>>> GetOfferRide()
         {
             return _RepoWrapper._OfferRideRepository.GetAll();
+        }
+        public RequiredModel AssignProperties(OfferingRides offeringRides)
+        {
+            List<int> locationId= new List<int>();
+            RequiredModel requiredModel = new RequiredModel();
+            requiredModel.OfferingRide = offeringRides;
+            locationId.Add(_RepoWrapper._LocationRepository.GetOne(x => x.LocationName == offeringRides.From).LocationId);
+            foreach(var location in offeringRides.Destinations)
+            {
+                locationId.Add(_RepoWrapper._LocationRepository.GetOne(x => x.LocationName == location.StopName).LocationId);
+            }
+            locationId.Add(_RepoWrapper._LocationRepository.GetOne(x => x.LocationName == offeringRides.To).LocationId);
+            requiredModel.LocationId = locationId;
+            return requiredModel;
         }
     }
 }
