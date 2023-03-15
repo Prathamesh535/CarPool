@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import SignUp from './Components/SignUp';
+import LogIn from './Components/LogIn';
+import Options from './Components/Options'
+import BookARide from './Components/BookARide';
+import OfferARide from './Components/OfferARide';
+import { Link, Routes, Route, BrowserRouter, useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [authLogin] = useState(true)
+  const nav = useNavigate();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path='/' element={<SignUp />}></Route>
+        <Route path='/login' element={<LogIn />}></Route>
+        {authLogin ? (
+          <>
+            <Route path='/options' element={<Options />}></Route>
+            <Route path='/bookaride' element={<BookARide />}></Route>
+            <Route path='/offeraride' element={<OfferARide />}></Route>
+          </>
+        ) : (<>
+          <Route path='/login' element={<LogIn/> }></Route>
+        </>)
+        }
+        <Route />
+      </Routes>
     </div>
   );
 }

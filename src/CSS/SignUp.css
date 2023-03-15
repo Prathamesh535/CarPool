@@ -1,0 +1,119 @@
+.sign-up-page {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sign-up-part-1 {
+  background-color: white;
+  width: 65%;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+
+.sign-up-part-1-text {
+  border: 1px solid white;
+  width: 55%;
+  height: 14rem;
+  margin-left: 3rem;
+  font-style: italic;
+  line-height: 2rem;
+  letter-spacing: 0.3rem;
+  position: relative;
+  top: 2rem;
+  color: #334053;
+}
+
+.miles-text {
+  color: #ffac19;
+}
+
+.money-text {
+  color: #9319ff;
+}
+
+.sign-up-part-1-text h1 {
+  font-size: 4rem;
+}
+
+.sign-up-part-2 {
+  background-color: #ffac19;
+  width: 35%;
+  height: 100%;
+}
+
+#ya-logo {
+  width: 3rem;
+  height: 3rem;
+  position: relative;
+  top: 2rem;
+  left: 3rem;
+}
+
+#sign-up-img {
+  width: 100%;
+  height: 40%;
+  position: relative;
+  top: 0.8rem;
+}
+
+#sign-up-need-a-ride {
+  width: 100%;
+  height: 20rem;
+  position: relative;
+  top: 3px;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  position: relative;
+  top: 4rem;
+  width: 100%;
+}
+
+.sign-up-heading {
+  color: white;
+}
+
+.sign-up-submit-button {
+  background-color: #9319ff;
+  border: 1px solid #9319ff;
+  color: white;
+  width: 7rem;
+  height: 2.5rem;
+  border-radius: 3rem;
+  font-weight: bolder;
+}
+
+.sign-up-submit-button:hover {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.already-a-member-text {
+  color: white;
+  z-index: 1;
+}
+
+.log-in-link-text {
+  color: white;
+  font-weight: bolder;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.sign-up-form input {
+  border: 2px solid #DADDEC;
+  margin: 5px 0 10px;
+  font-size: 1rem;
+  color: #656880;
+  width: 70%;
+  border: none;
+  padding: 14px;
+  border-radius: 3px;
+}

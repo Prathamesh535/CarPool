@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+html,
+body {
+      padding: 0;
+      margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+      /* height: 100vh; */
+      /* width: 100vw; */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+      box-sizing: border-box;
+      font-family: sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+::-webkit-scrollbar {
+      width: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+/* Track */
+::-webkit-scrollbar-track {
+      background: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+      background: white;
 }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+      background: whitesmoke;
+}
+
+/* SignUp Page Css */
+/* SignUp.css */
+/* SignUp Page Css */
+
+/* LogIn Page Css */
+/* LogIn.css */
+/* LogIn Page css */
+
+/* Options Page css */
+/* Options.css */
+/* Options Page css  */
+
+/* Book A Ride Page css */
+/* BookARide.css */
+/* Book A Ride Page css */
